@@ -6,6 +6,9 @@ class Node():
     
     def connect_to_node(self,host,port):
         self.s.connect((host,port))
+
+    def close_conn(self):
+        self.s.close()
     
     def get_verified(self,new_tran):
         unver_tran=str(new_tran)+self.password
