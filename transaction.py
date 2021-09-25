@@ -1,3 +1,6 @@
+# a class that represents a single transaction that is entered into the application. Helps in consistency in 
+# handling verified and unverified pools of transactions 
+
 class Transaction():
     def __init__(self,data,amount,timestamp):
         self.data=data
