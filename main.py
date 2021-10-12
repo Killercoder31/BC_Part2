@@ -6,14 +6,19 @@ from nodes import Node
 
 # bcn serves as the logical blockchain in the app
 # the transactions once inputed are divided into two pools unverified and verified 
-# a transaction first is assigned to the unverified pool. From there if all nodes are active and they form consensus then it is verified.
-# It can also be verified manually by Dexter the admin by using his special access password or removed by him on suspicion of tampering or if refunded.
-# Once verified the transaction can be added to blockchain by using admin special access by Dexter
+# a transaction first is assigned to the unverified pool. From there if all nodes 
+# are active and they form consensus then it is verified.
+# It can also be verified manually by Dexter the admin by using his special access 
+# password or removed by him on suspicion of tampering or if refunded.
+# Once verified the transaction can be added to blockchain by using admin special 
+# access by Dexter
+
 bcn=Blockchain()
 unverified=[]
 verified=[]
 
 # the three nodes are initialised and a connection is attempted 
+
 host='127.0.0.1'
 port=12345
 n1=Node('Pluto')
@@ -23,6 +28,7 @@ connError=0
 
 # if connection cannot be made the app runs in offline mode and does not verify any transactions by consensus. Once the nodes are online 
 # the superuser can batch process them to be verified by consensus or can manually verify and add to the verified pool
+
 try:
     n1.connect_to_node('127.0.0.1',12344)
     n2.connect_to_node('127.0.0.1',12345)
@@ -37,8 +43,10 @@ while(1):
     choice=input("Select: ")
     print("\n\n")
 
-    # the new transaction is compiled by using details given by user and computing timestamp and added to the unverified pool 
-    # if all nodes are found to be online it is batched for verification else it sits in the unverified pool for superuser intervention
+    # the new transaction is compiled by using details given by user and computing timestamp and 
+    # added to the unverified pool if all nodes are found to be online it is batched for verification 
+    # else it sits in the unverified pool for superuser intervention
+
     if(choice == '1'): 
         data=input("Please enter transaction data: ")
         amount=input("Please enter amount: ")
@@ -47,6 +55,7 @@ while(1):
         unverified.append(new_tran)
 
         # if the nodes are not connected a connection is retried and if error persists the transaction is ignored
+
         if(connError==1):
             n1.close_conn()
             n2.close_conn()
@@ -72,7 +81,8 @@ while(1):
             print()
             print(block.to_string())
 
-    # Admin superuser access to the application. Note this part can only be accessed by Dexter with a password required for authentication
+    # Admin superuser access to the application. Note this part can only be accessed by Dexter with a 
+    # password required for authentication
     elif(choice == '3'):
         password=input("Please enter admin password('Uranus'): ")
         print()
@@ -80,8 +90,9 @@ while(1):
             print("Incorrect password")
             continue
 
-        # once the user is authenticated he can view the transactions currently lying in either the verified or unverified pool
-        # each choice opens a sub-menu presenting further options to edit said pools
+        # once the user is authenticated he can view the transactions currently lying in either the verified or 
+        # unverified pool each choice opens a sub-menu presenting further options to edit said pools
+
         print("Please select an option: ")
         print("1: View unverified transactions\t2: View verified transactions")
         admin_choice=input("Select: ")
@@ -95,13 +106,14 @@ while(1):
                 print("{0}\t{1}\t{2}\t{3}".format(unverified.index(tran),tran.data,tran.amount,tran.timestamp))
 
             # sub-menu that lists options to deal with the unverified pool of transactions
+
             print("Please choose an option: ")
             print("1: Send all for verification (Please ensure all nodes are online)\t2: Remove transaction from list\t3: Verify all\t4: Return")
             unverified_choice=input("Select: ")
             print("\n\n")
 
-            # if the transactions are sent for re-verification connection with all nodes is restarted and if found online transactions are processed by them 
-            # if not they are ignored 
+            # if the transactions are sent for re-verification connection with all nodes is restarted and if 
+            # found online transactions are processed by them, if not they are ignored 
             if(unverified_choice=='1'):
                 reConnError=0
                 n1.close_conn
@@ -127,6 +139,7 @@ while(1):
                             unverified.remove(tran)
 
             # in case a transaction has to be removed 
+
             elif(unverified_choice=='2'):
                 tran_index=input("Enter index of transaction")
                 if(int(tran_index)<len(unverified)):
@@ -136,6 +149,7 @@ while(1):
                     continue
 
             # in case a transaction is manually verified by superuser
+            
             elif(unverified_choice=='3'):
                 for tran in unverified:
                     verified.append(tran)

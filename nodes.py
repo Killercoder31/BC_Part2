@@ -5,8 +5,8 @@ import socket
 
 class Node():
 
-    # each node has a password which is later matched during verification of transactions. This simple procedure 
-    # helps to keep the system tamper-free and consistent.
+    # each node has a password which is later matched during verification of transactions. 
+    # This simple procedure helps to keep the system tamper-free and consistent.
     def __init__(self,password):
         self.s=socket.socket()
         self.password=password
