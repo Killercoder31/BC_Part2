@@ -39,7 +39,10 @@ except:
 
 while(1):
     print("Please select an option: ")
-    print("1: Add a new transaction to the logbook\t2: View blockchain\t3: Admin controls\t4: Exit")
+    print("1: Add a new transaction to the logbook\n" 
+            + "2: View blockchain\n" 
+            + "3: Admin controls\n"
+            + "4: Exit")
     choice=input("Select: ")
     print("\n\n")
 
