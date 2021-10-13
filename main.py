@@ -26,8 +26,9 @@ n2=Node('Jupiter')
 n3=Node('Titan')
 connError=0
 
-# if connection cannot be made the app runs in offline mode and does not verify any transactions by consensus. Once the nodes are online 
-# the superuser can batch process them to be verified by consensus or can manually verify and add to the verified pool
+# if connection cannot be made the app runs in offline mode and does not verify any transactions by consensus.
+# Once the nodes are online the superuser can batch process them to be verified by consensus or can manually 
+# verify and add to the verified pool
 
 try:
     n1.connect_to_node('127.0.0.1',12344)
@@ -64,16 +65,19 @@ while(1):
             n2.close_conn()
             n3.close_conn()
             connError=0
+            
             try:
                 n1.connect_to_node('127.0.0.1',12344)
                 n2.connect_to_node('127.0.0.1',12345)
                 n3.connect_to_node('127.0.0.1',12346)
             except:
                 connError=1
+    
         if(connError==0):
             node_return1=n1.get_verified(new_tran.to_string)
             node_return2=n2.get_verified(new_tran.to_string)
             node_return3=n3.get_verified(new_tran.to_string)
+            
             if(node_return1=='Verified' and node_return2=='Verified' and node_return3=='Verified'):
                 verified.append(new_tran)
                 unverified.remove(new_tran)
@@ -111,7 +115,8 @@ while(1):
             # sub-menu that lists options to deal with the unverified pool of transactions
 
             print("Please choose an option: ")
-            print("1: Send all for verification (Please ensure all nodes are online)\t2: Remove transaction from list\t3: Verify all\t4: Return")
+            print("1: Send all for verification (Please ensure all nodes are online)\t"
+                    + "2: Remove transaction from list\t3: Verify all\t4: Return")
             unverified_choice=input("Select: ")
             print("\n\n")
 
