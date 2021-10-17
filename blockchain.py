@@ -29,3 +29,4 @@ class Blockchain():
         prev_hash = self.get_last_hash()
         new_block = Block(data,amount,timestamp,prev_hash)
         self.blocks.append(new_block)
+        
